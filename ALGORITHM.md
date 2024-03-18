@@ -20,23 +20,31 @@
 >     String result = str.replaceAll("[\u4e00-\u9fa5]",""); // 替换所有中文
 >     boolean isWord = words[i].matches("\\w+"); // 使用正则表达式进行匹配所有单词；\\w：代表一个单词字符，即a-z、A-Z、0-9或下划线_；+：表示前面的字符（在这里是\w）可以出现一次或多次。
 
+### 【2】71. 简化路径 
+- string增减操作：
+>     StringBuffer strBuffer = new StringBuffer(); // 不安全，比StringBuilder更快速
+>     strBuffer.append("end"); // 在后边插入
+>     strBuffer.insert(0, "begin"); // 在前边插入
+
+- string预处理操作，分割处理：
+>     String[] names = path.split("/"); // 分割path，可以为空
 
 
 - 字符串数组互转：
 >     char[] chars = str.toCharArray();
 >     String str = chars.toString();
+>     char i = str.charAt(0); // 获取str中第0个字符
 
-# 4.遍历树
-- BFS广度优先：
+# 4.树
+- BFS广度优先层次遍历：
 >     public void bfs(TreeNode root) {
 >         if(root==null) {
 >             return null;
 >         }
 >         LinkedList<TreeNode> queue = new LinkedList<TreeNode>();
->         queue.add(root); // 加入头
->         // while (p || !queue.isEmpty()) { // 先序遍历，p不为空或栈不为空一直向左子到底
->         while(!queue.isEmpty()) { // 中序遍历不为空
->             TreeNode tmp = queue.poll();
+>         queue.add(root); // 从头加入
+>         while(!queue.isEmpty()) {
+>             TreeNode tmp = queue.poll(); // 从头取出
 >             if(tmp.left!=null) {
 >                 queue.add(tmp.left);
 >             }
@@ -48,7 +56,22 @@
 >         return void;
 >     }
 
-- DFS深度优先：
+- BFS先序遍历：
+>     Deque<TreeNode> queue = new LinkedList<TreeNode>();
+>     TreeNode p = root;
+>     while(p != null || !queue.isEmpty()) {
+>         if (p != null) { // while (p != null) 可无continue
+>             // 先序遍历
+>             queue.push(p); // 从尾加入
+>             p = p.left;
+>             continue;
+>         }
+>         p = queue.pop(); // 从尾出队
+>         p = p.right;
+>     }
+
+
+- DFS深度优先遍历：
 >     public void dfs(TreeNode root) {
 >         if (root == null) {
 >           return;
@@ -59,8 +82,28 @@
 >         dfs(root.right);
 >     }
 
-
-# 3.基本结构
+# 5.链表
+### 【2】92. 反转链表 II
+- 反转链表：
+>     public void dfs(TreeNode root) {
+>         if (root == null) {
+>           return;
+>         }
+>         // 代码在此处表示前序
+>         dfs(root.left);
+>         // 代码在此处表示中序
+>         dfs(root.right);
+>     }
+ListNode pre = preNode.next;
+        ListNode tailNode = pre.next;
+        while (index < right && pre.next != null) {
+            ListNode current = tailNode;
+            tailNode = tailNode.next;
+            current.next = pre;
+            pre = current;
+            index++;
+        }
+# x.基本结构
 ### 【1】20. 有效的括号
 - 栈的使用：
 >     Stack<Character> stack = new Stack<>(); // 两种初始化方式
@@ -76,9 +119,12 @@
 
 ### 【1】199. 二叉树的右视图
 - 队列的使用：
+>     // 双端队列
 >     Deque<Character> que = new LinkedList<Character>();
->     que.add('t');
->     que.offer('t');添加到队列尾部，比add更好
->     que.peek(); // 获取头部元素不删除，为空返回null
->     que.poll(); // 获取头部元素并删除元素，为空返回null
+>     que.add('t'); // 添加到队列尾部
+>     que.offer('t'); // 添加到队列尾部，比add更好
+>     que.peek(); // 查看头部元素不出队列，为空返回null
 >     que.remove; // 获取头部元素并删除元素, 为空报错
+>     que.poll(); // 获取头部元素并出队列，为空返回null，比remove好
+>     // 单端队列
+>     Queue
