@@ -12,3 +12,16 @@ RabbitMQ死信队列，
 
 2、秒杀项目
 数据、请求数量、路径尽量短、依赖尽量少，不要单点
+ 
+挑一个你最熟悉的项目讲讲
+项目出现bug怎么进行调试的
+python了解多少
+linux命令 一堆 一直问这个
+shell 会用什么
+代码题：冒泡排序 然后优化（标记提前退出）
+git checkout
+git stash 
+struct VS class
+看懂C++ 、 python 、 linux、shell
+
+
