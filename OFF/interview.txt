@@ -179,7 +179,6 @@ ip_regex = r"^([1-9]|([1-9][0-9])|(1[0-9][0-9])|(2[0-4][0-9])|(25[0-5]))(\.([0-9
 if (year % 4 == 0 and year % 100 != 0) or (year % 400 == 0):
 
 【19】微信用户界面登陆过程都需要做哪些分析
-功能 界面 性能 易用  兼容 安全
 1、功能测试：
 	正确密码用户能正确登录；错误密码用户不能登录；登录用户成功后，能否正确跳转；登录失败后是否有错误提示
 	用户名特殊字符和长度要求；密码长度和复杂度要求;太长如何处理，太短如何处理；什么都不输入登录
@@ -405,25 +404,55 @@ CCB评审会议，一般SE(System Engineer)来定夺，以符合功能、安全�
 
 【35】hadoop集群
 
-【36】思维题
-1、5只猫 五分钟捉5只老鼠 请问100分钟捉100只老鼠需要多少只猫？ 一只猫捉一只老鼠要5分钟20只，5只
-2、晚上有四个人过桥，一次只能过两个人，但是只有一只手电筒，四个人过桥时间分别是1，2，5，8，求最短过桥时间？由1和2分别送手电；2 + 2 + 8 + 1 + 2 = 15；2 + 1 + 8 + 2 + 2 = 15
-3、两个容积分别为5升和6升的桶，最后如何只装3升？ 6升满水，倒入五升剩一升，重复后六升桶剩2升，再次重复倒满
-4、有十张扑克牌，每次可以只出一张，也可以只出两张，要出完有多少种出法？递归的思想或者动态规划 F(10)= 1*F(9)  + 1*F(8) + F(2);F(1) = 1,F(2)=2；F(3) = 3,F(4)=5,F(5)=8,F(6)=13,F(7)=21,34,55,F(10)=89
-5、井道大都是圆形的？耐用性、安全性、节约成本、易用性
-	1.受力均匀，不容易破损 2.直径大于井口，不会掉下去 3.制作比矩形节省材料，矩形内切圆形的面积最小 4.方便搬运 5.方便安装
-6、5个海盗抢到了100枚金币，1号海盗提出怎样的分配方案才能顺利通过考验并拿到可能性内最多的金币呢？
-	在4号的时候，无论5号投什么票，只有两个人，只要4号自己同意就可以了，那么4号就是（0，0，0，100，0）； 
-	到3号的时候，他知道，如果四号分配肯定不给5号，那他只要给5号1个，5号也会同意，故3号就是（0，0，99，0，1); 
-	在2号的时候，只要除了自己之外的一个人同意就好了（四个人，半数2人，两人通过则也通过），他能想到3号的分配，肯定不会给4，那2号只要给4号一个，4号因为得到比3号分配多一个，他也会同意，故2号（0，99，0，1，0）； 然后到了一号，因为对于2号的方案，没有给3号，和5号，那么1号提出（98，0，1，0，1），给3号和5号各一个金币，那3，5号同意，加上自己一票，三票就可以通过这个方案。  
+
+【36】
+
+1、您能详细描述一下您在搭建和维护 iServer 产品 Java 接口自动化框架时使用的关键技术和工具吗？
+答：Selenide和Selenium WebDriver用于WebUI的操作执行以及测试，TestNG用于管理运行测试方法，图片对比的
+	<configuration>、<suiteXmlFiles>动态指定xml文件路径
+	TestNG更丰富的注解：Suite类自定义测试套件@BeforeSuite、@AfterSuite（分组、分类执行group packages）
+	@DataProvider参数化设置，运行不同的路径，和不同的参数引擎，原本是使用dom4j来读取xml
+	com.sun.jersey使用jersey-client来执行ClientResponse response = HttpAssert.getClientResponse("POST", uri, requestEntity);   return response.getEntity(String.class);
+2、您在 iDektopX 产品中使用的 Python UI 自动化框架有哪些特点？您是如何确保框架的稳定性和可维护性的？
+	基于 Python 语言，使用了PyAutoGUI、opencv、cnocr、内建assert 等库。为了确保框架的稳定性，我编写了详细的文档，并定期进行代码审查和重构。
+	图像识别：使用OpenCV+pythonAutoGUI等库对图像进行预处理，如灰度化、二值化、去噪等，以提高OCR的识别率。
+		预处理图像：template = cv2.imread(url + '{}.png'.format(word), cv2.IMREAD_GRAYSCALE)
+		模板匹配：template = cv2.imread(url + '{}.png'.format(word), cv2.IMREAD_GRAYSCALE)  
+		screenshot = pyautogui.screenshot(region=(region['x'], region['y'], region['width'], region['height'])) 
+		res = cv2.matchTemplate(screenshot, template, cv2.TM_CCOEFF_NORMED) 
+	文字识别：尝试使用不同的预训练模型或调整OCR的识别参数（如检测阈值、识别阈值等）
+		ocr = PaddleOCR(use_angle_cls=False, lang="ch")
+		screenshot = pyautogui.screenshot(region=(region_point['x'], region_point['y'], region_point['width'] - i, region_point['height'] - i))  
+		result = ocr.ocr(np.array(screenshot), cls=True)
+	页面操作：PyAutoGUI.moveTo、doubleClick、scroll、click、hotkey、copy
+	断言判断：Pytest @pytest.fixture()  @pytest.mark.parametrize("test_input, expected", [("3+5", 8), ("4+5", 8)])
+
+3、您在构建自动化测试框架时，是如何集成到 CI/CD 流程中的？请分享一些您在这一过程中遇到的挑战和解决方案。
+	使用TeamCity，配置Agent，第一步清除临时文件，
+	使用shell环境编写批处理文件来调用 批处理文件调用 PuTTY 来执行远程服务器上的 Shell 脚本
+	shell脚本中配置了删除已有包，关闭需要使用的接口进程，解压包，书写配置文件，替换文件，运行包
+	ui自动化Testng作为第三步骤，来启动并初始化新包，最后执行testng中的用例setup_module、teardown_module
+    
+4、Jemeter怎么用：
+	新建测试计划，新建线程组-设置线程数-循环次数，创建Random接口之类都行
+	创建HeaderManager、创建HTTP执行的线程，放入Assertion进行断言判断响：应时间断言、JSON 断言、模式匹配是否包含内容
+	添加监听的聚合reporter、响应时间图、结果数据图；监听cpu和memory
+
+5、接口自动化的覆盖率统计？SonarQube接口查看研发统计，
+
+6、SELECT 学生号, COUNT(*) AS 学生人数 FROM 学生表 GROUP BY 年级 ORDER BY 学生号 ASC; DESC
+
+7、get和post的区别
+8、加载一个页面的过程
+9、线程和进程的区别
+10、TCP和UDP区别
 
 
-
-
-
-
-
-
+Postman：使用Script、Authorization
+JMeter
+Swagger
+Fiddler
+wireShark抓包
 
 
 
