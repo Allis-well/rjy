@@ -661,6 +661,7 @@ str.matches("^[-+]?\\d*\\.?\\d+$");
 后面复盘感觉可以用三维数组去dp。
 
 测开需要的品质和工作内容？
+工作是web端还是，能否看见源码
 
 
 
@@ -668,14 +669,64 @@ str.matches("^[-+]?\\d*\\.?\\d+$");
 
 
 
+【】测试平台
+1、对象类别：
+    Entity(实体):直接与数据库表进行映射，持久化CRUD
+    DTO(数据传输对象):在应用程序的不同层次之间传输的数据的对象
+    VO(视图对象):用户界面上的数据对象，视图所需所有数据（日期格式化、图片链接等）
+    PO(持久化对象):
+2、myBatis-Plus使用和
+@TableName(value = "instability_filter")：MyBatis Plus，指定这个实体类对应的数据库表名
+@TableId(value = "id",type = IdType.AUTO)：MyBatis Plus，指定实体类中的字段作为数据库表的主键。value = "id" 表示数据库表的字段名是 id，type = IdType.AUTO 表示主键值是自动生成的。
+@TableField(value = "istb_filter")：指定实体类中的字段映射到数据库表的哪个字段
 
+3、jvm调优：
+1.确定当前内存使用情况：
+    使用 jps 命令查看当前 Java 进程。
+    使用 jstat -gc <pid> 查看垃圾回收情况。
+    使用 jmap -heap <pid> 查看堆内存使用情况。
+2.调整 JVM 启动参数：
+    java -Xms512m -Xmx1024m -jar your-application.jar
+3.年轻代和老年代：使用 -Xmn 设置年轻代大小，使用 -XX:NewRatio 设置年轻代和老年代的比例。例如：
+    java -Xms1024m -Xmx1024m -Xmn256m -XX:NewRatio=2 -jar your-application.jar
+4.垃圾回收器：选择并设置垃圾回收器。例如，使用 G1 垃圾回收器：
+    java -Xms1024m -Xmx1024m -XX:+UseG1GC -jar your-application.jar
+5.每个线程都有自己的栈，用于存储局部变量和方法调用。栈大小可以通过以下参数调整：
+    -Xss<size>：设置线程栈的大小。例如，-Xss256k 设置为 256 KB
+6.设置对象晋升到老年代前在年轻代的存活次数
+    -XX:MaxTenuringThreshold 30
 
+4、
+多线程执@Test中的方法，
+import org.testng.annotations.Test;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
+public class ConcurrencyTest {
 
+    @Test(invocationCount = 10, threadPoolSize = 5)
+    public void testMethod() {
+        // 这里编写测试逻辑
+    }
 
+    public static void main(String[] args) {
+        ExecutorService executorService = Executors.newFixedThreadPool(10);
+        for (int i = 0; i < 10; i++) {
+            executorService.submit(new Runnable() {
+                @Override
+                public void run() {
+                    // 这里编写测试逻辑
+                }
+            });
+        }
+        executorService.shutdown();
+    }
+}
 
+换一个更好的平台来挑战自我；原本想的是早点走，但是公司正好处在最忙的时候，
+又有员工离职，我才呆到现在9月底大版本全部发布完成；
+如果我有幸担任这个职位，你会给我哪些建议?
+技能和技术共鸣
 
-
-
-
-
+1、公司现在做什么项目，公司目前做哪方面测试
+2、公司这边测试人员分配比例，或者说测试与开发时间占比
