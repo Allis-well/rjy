@@ -662,7 +662,15 @@ str.matches("^[-+]?\\d*\\.?\\d+$");
 
 
 【】测试平台
-通过配置的方式进行1-前端触发tag，发送到teamcity执行，teamcity会下载包，下载自动化测试框架，执行shell脚本，让被测对象自动配置、并初始化完成，执行UI自动化测试，执行testng的分类测试
+首先公司是通过teamcity来进行CI的
+有一个自动化测试展示大屏项目，负责展示研发的每个产品的TeamCity执行结果和自动化执行个数，
+其次呢就是管理我们的自动化用例（自动化用例呢包括，用例id,方法名,URL,HTTP方法,请求体,预期结果）
+自动化数据只有数据存放地址的表，显示数据存放的绝对地址，用于自动生成xml配置文件，便于产品的自动发布和使用数据，一般不会更改。
+前端项目可以触发自动化执行，但执行的方式还是依赖TeamCity，执行完成会获取最后一次的执行状态，可以用前端或者teamcity手动触发也会因为打标签而自动触发
+前端触发tag，发送到teamcity执行，teamcity会下载包，下载自动化测试框架，执行shell脚本，让被测对象自动配置、并初始化完成，执行UI自动化测试初始化包，
+执行testng的分类测试完毕，输出自动化测试结果，从teamcity上获取执行数据并解析到我们的前端页面，再一键下载整个
+
+
 
 
 覆盖核心功能-100%，手工用例有1000+，总体覆盖率50%左右；
@@ -675,6 +683,39 @@ str.matches("^[-+]?\\d*\\.?\\d+$");
 
 一个接口用例，调用接口，一个步骤，一个关键字(关键字对应不同的参数)，调用完接口，
 
+List<TestCase> findAll();
+public void executeTests() {
+        List<TestCase> testCases = testCaseRepository.findAll();
+        RestTemplate restTemplate = new RestTemplate();
+
+        for (TestCase testCase : testCases) {
+            ResponseEntity<String> responseEntity = executeRequest(testCase);
+            if (isValidResponse(responseEntity, testCase)) {
+                System.out.println("测试用例 " + testCase.getId() + " 通过");
+            } else {
+                System.out.println("测试用例 " + testCase.getId() + " 失败");
+            }
+        }
+    }
+
+    private ResponseEntity<String> executeRequest(TestCase testCase) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<String> entity = new HttpEntity<>(testCase.getRequestBody(), headers);
+        ResponseEntity<String> responseEntity = restTemplate.exchange(
+                testCase.getUrl(),
+                HttpMethod.resolve(testCase.getHttpMethod()),
+                entity,
+                String.class
+        );
+        return responseEntity;
+    }
+
+    private boolean isValidResponse(ResponseEntity<String> responseEntity, TestCase testCase) {
+        // 这里可以根据实际情况来验证响应是否符合预期
+        String actualResult = responseEntity.getBody();
+        return actualResult != null && actualResult.contains(testCase.getExpectedResult());
+    }
 
 
 import org.apache.http.client.methods.HttpPost;
