@@ -670,6 +670,65 @@ str.matches("^[-+]?\\d*\\.?\\d+$");
 
 
 【】测试平台
+通过配置的方式进行1-前端触发tag，发送到teamcity执行，teamcity会下载包，下载自动化测试框架，执行shell脚本，让被测对象自动配置、并初始化完成，执行UI自动化测试，执行testng的分类测试
+
+
+覆盖核心功能-100%，手工用例有1000+，总体覆盖率50%左右；
+
+测试用例ID 方法名 前置条件	URL	HTTP方法	请求头	请求体	预期结果  参数1 参数2 参数3
+
+代码里配置xml,不同的引擎，DataProvider的，快速写好，比较方便，用例管理你可以在前端新增，更改filer文件;
+每一个用例，有执行步骤，每一个步骤都有一个关键字key，每一个；
+解析
+
+一个接口用例，调用接口，一个步骤，一个关键字(关键字对应不同的参数)，调用完接口，
+
+
+
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
+
+public class TeamCityRerunTest {
+
+    private static final String TEAMCITY_URL = "http://your-teamcity-url";
+    private static final String TEST_RERUN_ENDPOINT = TEAMCITY_URL + "/httpAuth/app/rest/test/rerun";
+    private static final String AUTH_HEADER_VALUE = "Basic " + "YourBase64EncodedCredentials"; // Replace with your encoded credentials
+
+    public static void main(String[] args) {
+        String testId = "testId"; // Replace with the actual test ID you want to rerun
+        rerunTest(testId);
+    }
+
+    private static void rerunTest(String testId) {
+        CloseableHttpClient httpClient = HttpClients.createDefault();
+
+        HttpPost postRequest = new HttpPost(TEST_RERUN_ENDPOINT + "?testLocator=" + testId);
+        postRequest.setHeader("Content-Type", "application/json");
+        postRequest.setHeader("Authorization", AUTH_HEADER_VALUE);
+
+        try {
+            httpClient.execute(postRequest);
+            System.out.println("Test rerun request sent for test ID: " + testId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                httpClient.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}
+
+testng -Dallure.results.path=allure-results MyTestSuite.xml
+testng -listener reportng.EmailableReporter MyTestSuite.xml
+ExtentReports生成测试报告；
+
+
 1、对象类别：
     Entity(实体):直接与数据库表进行映射，持久化CRUD
     DTO(数据传输对象):在应用程序的不同层次之间传输的数据的对象
@@ -730,3 +789,8 @@ public class ConcurrencyTest {
 
 1、公司现在做什么项目，公司目前做哪方面测试
 2、公司这边测试人员分配比例，或者说测试与开发时间占比
+
+
+国外开源社区和git官网提出了pull 了一个issue，然后他们帮我解答了这个问题。
+
+最难解决的问题：会什么，找难度最高的。
