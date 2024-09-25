@@ -1,0 +1,21 @@
+https://blog.csdn.net/kk_lzvvkpj/article/details/129695835
+1、fiddler如何mock数据：使用 Fiddler 的 Composer 功能可以创建和修改请求和响应，从而模拟服务器返回的数据。
+2、模拟404：可以通过修改服务器配置或者使用抓包工具拦截请求并返回404状态码来模拟。
+3、get请求和post请求的区别
+4、adb命令：adb devices 列出连接的设备，adb shell pm list packages 列出所有应用的包名，am 是 Android 的 Activity Manager 命令行工具。
+
+5、503表示服务不可用，401表示未授权，403表示禁止访问。出现403可能是因为权限不足，需要检查权限设置。
+6、selenium定位元素：可以使用 ID、名称、CSS 选择器、XPath 等多种方式定位元素。CSS 和 XPath 是两种不同的选择器语言，CSS 选择器更简洁，XPath 更灵活。
+7、继承、多态、封装
+
+1. 问项目的难点
+2. 八股:
+指针和引用区别
+线程之间的通信方式
+虚函数
+进程线程的区别
+互斥量，读写锁
+七层网络模型
+tcp，udp区别
+
+要在一篇英文文章中查找最短的目标子串，我们可以使用字符串搜索算法。这里有一个简单的Java方法，它使用了滑动窗口的概念来查找最短的目标子串：KMP（Knuth-Morris-Pratt）、Boyer-Moore或Rabin-Karp算法。

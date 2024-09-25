@@ -661,7 +661,7 @@ str.matches("^[-+]?\\d*\\.?\\d+$");
 
 
 
-【】测试平台
+【056】测试平台
 首先公司是通过teamcity来进行CI的
 有一个自动化测试展示大屏项目，负责展示研发的每个产品的TeamCity执行结果和自动化执行个数，
 其次呢就是管理我们的自动化用例（自动化用例呢包括，用例id,方法名,URL,HTTP方法,请求体,预期结果）
@@ -671,9 +671,7 @@ str.matches("^[-+]?\\d*\\.?\\d+$");
 执行testng的分类测试完毕，输出自动化测试结果，从teamcity上获取执行数据并解析到我们的前端页面，再一键下载整个
 
 
-
-
-覆盖核心功能-100%，手工用例有1000+，总体覆盖率50%左右；
+覆盖核心功能-100%，手工用例有1000+，总体覆盖率50%左右；1000个
 
 测试用例ID 方法名 前置条件	URL	HTTP方法	请求头	请求体	预期结果  参数1 参数2 参数3
 
@@ -771,7 +769,7 @@ ExtentReports生成测试报告；
 @TableName(value = "instability_filter")：MyBatis Plus，指定这个实体类对应的数据库表名
 @TableId(value = "id",type = IdType.AUTO)：MyBatis Plus，指定实体类中的字段作为数据库表的主键。value = "id" 表示数据库表的字段名是 id，type = IdType.AUTO 表示主键值是自动生成的。
 @TableField(value = "istb_filter")：指定实体类中的字段映射到数据库表的哪个字段
-
+【057】测试平台
 3、jvm调优：
 1.确定当前内存使用情况：
     使用 jps 命令查看当前 Java 进程。
@@ -788,7 +786,7 @@ ExtentReports生成测试报告；
 6.设置对象晋升到老年代前在年轻代的存活次数
     -XX:MaxTenuringThreshold 30
 
-4、
+【058】测试平台
 多线程执@Test中的方法，
 import org.testng.annotations.Test;
 import java.util.concurrent.ExecutorService;
@@ -814,7 +812,7 @@ public class ConcurrencyTest {
         executorService.shutdown();
     }
 }
-
+【059】
 换一个更好的平台来挑战自我；原本想的是早点走，但是公司正好处在最忙的时候，
 又有员工离职，我才呆到现在9月底大版本全部发布完成；
 如果我有幸担任这个职位，你会给我哪些建议?
