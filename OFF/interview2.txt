@@ -495,23 +495,9 @@ Docker缺点：隔离性不如虚拟机、性能问题可能在高并发时成�
 docker run；docker build；docker images；docker ps；docker stop 和 docker start；docker rm；docker rmi
 
 
-【56】项目的难点在哪：
-    TestNG生成的报告无法发布的问题，因为打包出来是一个整体，testng上获取json和xml其他人也看不懂
-    使用前端解析并导出为一个长pdf的功能进行实现的。
-
 【57】实现索引的数据结构是什么？详细讲一下B+树和B树
 
-3.socket建一个服务器的操作步骤
 
-8.讲一下继承是怎么实现的
-
-9、配置文件递增递减怎么考虑测试场景
-
-10、python内存管理机制
-
-11、项目中的接口测试和自动化解决过哪些问题？
-
-12、压测以及后端服务架构的理解，线上的部署方式？
 
 【spring】
 【】Java垃圾回收机制和怎么创建线程
@@ -519,6 +505,12 @@ docker run；docker build；docker images；docker ps；docker stop 和 docker s
 Class.forName()；动态加载字节码文件得到得到一个对象， 
 在JDBC加载驱动
 还有就是TestNG的@DataProvider注解或者监听器等。 
+
+【】了解Spring框架吗？
+依赖注入DI：减少代码耦合性
+面向切面编程AOP：日志记录、事务管理之类与业务逻辑分离
+ IOC容器：设计模式将对象的实例化交给容器(比如Spring)来完成，降低耦合。实现的方式是applicationContext.xml里新建一个bean标签，再 ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");拿到对象。 AOP动态增强切点方法（三种Advice增强）。 
+设计模式：工厂（BeanFactory或ApplicationContext来创建bean对象）、适配器（Spring AOP中的增强或通知，不同的Advice类型适配成统一的方法拦截器）、装饰器（数据库连接事务管理、连接池）、观察者（ApplicationEvent和ApplicationListener接口，允许bean监听和响应应用程序事件）、单例模式（ConcurrentHashMap）
 
 【10】java中线程安全相关的容器；
 在Java中，线程安全的容器是那些设计用来在多线程环境中安全使用的集合。以下是一些Java中线程安全的容器：
@@ -603,7 +595,6 @@ PriorityBlockingQueue：这是一个支持优先级的无界阻塞队列，使�
     访问修饰符可以不同。
 重载是编译时多态的一个例子，即在编译时根据方法的签名（方法名和参数列表）来决定调用哪个方法。
 
-
 【7】封装、继承和多态：
     封装：
         隐藏内部实现细节，保护数据不被外部直接访问。
@@ -617,17 +608,6 @@ PriorityBlockingQueue：这是一个支持优先级的无界阻塞队列，使�
         灵活性：代码更加灵活，易于维护和扩展。
 
 
-【12】数据库索引的缺点和优点。
-
-21、稳定性方面和测试基础
-
-
-【】了解Spring框架吗？
-依赖注入DI：减少代码耦合性
-面向切面编程AOP：日志记录、事务管理之类与业务逻辑分离
- IOC容器：设计模式将对象的实例化交给容器(比如Spring)来完成，降低耦合。实现的方式是applicationContext.xml里新建一个bean标签，再 ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");拿到对象。 AOP动态增强切点方法（三种Advice增强）。 
-设计模式：工厂（BeanFactory或ApplicationContext来创建bean对象）、适配器（Spring AOP中的增强或通知，不同的Advice类型适配成统一的方法拦截器）、装饰器（数据库连接事务管理、连接池）、观察者（ApplicationEvent和ApplicationListener接口，允许bean监听和响应应用程序事件）、单例模式（ConcurrentHashMap）
-
 【】常见排序算法的时间复杂度，较好的空间复杂度的算法是哪个？ 说说希尔排序的原理，冒泡排序的原理。 
 
 如何判断一个字符串是否是数字？
@@ -638,7 +618,6 @@ str.matches("^[-+]?\\d*\\.?\\d+$");
 （1）字符串切割排序
 （2）二叉数组两个数加在一起=某个值
 
-【】一分钟自我介绍
 
 【】软件分类
     致命缺陷（Fatal）：这类缺陷会导致系统主要功能完全丧失，用户数据受到破坏，系统崩溃、悬挂或死机，甚至可能危及人身安全。这类缺陷通常需要立即解决。
@@ -658,6 +637,9 @@ str.matches("^[-+]?\\d*\\.?\\d+$");
 后面复盘感觉可以用三维数组去dp。
 
 
+【56】项目的难点在哪：
+    TestNG生成的报告无法发布的问题，因为打包出来是一个整体，testng上获取json和xml其他人也看不懂
+    使用前端解析并导出为一个长pdf的功能进行实现的。
 
 
 
