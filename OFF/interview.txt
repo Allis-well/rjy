@@ -460,8 +460,7 @@ docker run；docker build；docker images；docker ps；docker stop 和 docker s
     java -Xms1024m -Xmx1024m -Xmn256m -XX:NewRatio=2 -jar your-application.jar
 4.垃圾回收器：选择并设置垃圾回收器。例如，使用 G1 垃圾回收器：
     java -Xms1024m -Xmx1024m -XX:+UseG1GC -jar your-application.jar
-5.每个线程都有自己的栈，用于存储局部变量和方法调用。栈大小可以通过以下参数调整：
-    -Xss<size>：设置线程栈的大小。例如，-Xss256k 设置为 256 KB
+5.每个线程都有自己的栈，用于存储局部变量和方法调用。栈大小可以通过以下参数调整：-Xss<size>：设置线程栈的大小。例如，-Xss256k 设置为 256 KB
 6.设置对象晋升到老年代前在年轻代的存活次数
     -XX:MaxTenuringThreshold 30
 
