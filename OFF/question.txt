@@ -1,3 +1,0 @@
-https://blog.csdn.net/kk_lzvvkpj/article/details/129695835
-
-要在一篇英文文章中查找最短的目标子串，我们可以使用字符串搜索算法。这里有一个简单的Java方法，它使用了滑动窗口的概念来查找最短的目标子串：KMP（Knuth-Morris-Pratt）、Boyer-Moore或Rabin-Karp算法。
